@@ -34,6 +34,7 @@ FRESH_THRESHOLD_HOURS = {
     "Ayam Goreng":  4,
     "Ikan Goreng":  10,
     "Telur Rebus":  24,
+    "Nasi Goreng":   6,   
 }
 
 # Alias supaya nama yang sedikit beda tetap kebaca
@@ -43,6 +44,7 @@ ALIASES = {
     "ikan goreng":      "Ikan Goreng",
     "nasi putih":       "Nasi Putih",
     "nasi":             "Nasi Putih",
+    "nasi goreng":      "Nasi Goreng",
     "ayam goreng":      "Ayam Goreng",
     "telur rebus":      "Telur Rebus",
 }

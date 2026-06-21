@@ -1,0 +1,106 @@
+======================================================================
+CROSS-VALIDATION (StratifiedGroupKFold, mean +/- std)
+======================================================================
+Logistic Regression  (best params: {'clf__C': 0.01, 'clf__class_weight': 'balanced', 'clf__penalty': 'l2'})
+    accuracy  : 0.737 +/- 0.056
+    precision : 0.768 +/- 0.086
+    recall    : 0.824 +/- 0.051
+    f1        : 0.789 +/- 0.031
+    roc_auc   : 0.746 +/- 0.052
+
+Out-of-fold classification report - Logistic Regression
+              precision    recall  f1-score   support
+
+       fresh      0.706     0.626     0.663     15223
+     spoiled      0.761     0.820     0.789     22081
+
+    accuracy                          0.741     37304
+   macro avg      0.733     0.723     0.726     37304
+weighted avg      0.738     0.741     0.738     37304
+
+Decision Tree  (best params: {'clf__class_weight': None, 'clf__criterion': 'gini', 'clf__max_depth': 3, 'clf__min_samples_leaf': 1, 'clf__min_samples_split': 2})
+    accuracy  : 0.746 +/- 0.029
+    precision : 0.794 +/- 0.044
+    recall    : 0.777 +/- 0.055
+    f1        : 0.783 +/- 0.024
+    roc_auc   : 0.782 +/- 0.006
+
+Out-of-fold classification report - Decision Tree
+              precision    recall  f1-score   support
+
+       fresh      0.687     0.694     0.690     15223
+     spoiled      0.788     0.781     0.785     22081
+
+    accuracy                          0.746     37304
+   macro avg      0.737     0.738     0.737     37304
+weighted avg      0.746     0.746     0.746     37304
+
+KNN  (best params: {'clf__metric': 'euclidean', 'clf__n_neighbors': 9, 'clf__weights': 'uniform'})
+    accuracy  : 0.715 +/- 0.046
+    precision : 0.759 +/- 0.021
+    recall    : 0.758 +/- 0.078
+    f1        : 0.757 +/- 0.047
+    roc_auc   : 0.720 +/- 0.038
+
+Out-of-fold classification report - KNN
+              precision    recall  f1-score   support
+
+       fresh      0.651     0.651     0.651     15223
+     spoiled      0.759     0.759     0.759     22081
+
+    accuracy                          0.715     37304
+   macro avg      0.705     0.705     0.705     37304
+weighted avg      0.715     0.715     0.715     37304
+
+Random Forest  (best params: {'clf__n_estimators': 50, 'clf__min_samples_split': 2, 'clf__min_samples_leaf': 1, 'clf__max_features': 'log2', 'clf__max_depth': 7, 'clf__criterion': 'entropy', 'clf__class_weight': None})
+    accuracy  : 0.731 +/- 0.024
+    precision : 0.789 +/- 0.059
+    recall    : 0.757 +/- 0.052
+    f1        : 0.769 +/- 0.002
+    roc_auc   : 0.801 +/- 0.018
+
+Out-of-fold classification report - Random Forest
+              precision    recall  f1-score   support
+
+       fresh      0.663     0.683     0.673     15223
+     spoiled      0.777     0.761     0.769     22081
+
+    accuracy                          0.729     37304
+   macro avg      0.720     0.722     0.721     37304
+weighted avg      0.730     0.729     0.730     37304
+
+
+======================================================================
+MODEL COMPARISON (out-of-fold)
+======================================================================
+                     accuracy  precision_macro  recall_spoiled  f1_macro    mcc  roc_auc  inference_s
+Logistic Regression     0.741            0.733           0.820     0.726  0.456    0.744        0.004
+Decision Tree           0.746            0.737           0.781     0.737  0.475    0.789        0.004
+KNN                     0.715            0.705           0.759     0.705  0.410    0.717        0.004
+Random Forest           0.729            0.720           0.761     0.721  0.442    0.778        0.024
+
+======================================================================
+PER-FOOD MQ IMPORTANCE (permutation, model: Logistic Regression)
+======================================================================
+                mq2   mq135     mq4
+Ayam Goreng -0.0060  0.0113 -0.0070
+Ikan Goreng  0.0898 -0.0088  0.0292
+Nasi Putih   0.0894  0.0426  0.0918
+Telur Rebus -0.2160 -0.1917 -0.0905
+
+======================================================================
+PER-FOOD MQ IMPORTANCE (permutation, model: Random Forest)
+======================================================================
+                mq2   mq135     mq4
+Ayam Goreng  0.0060  0.0219  0.0017
+Ikan Goreng  0.0199  0.0020  0.0602
+Nasi Putih   0.0122  0.0048  0.0315
+Telur Rebus  0.0849  0.2045  0.3211
+
+======================================================================
+BEST MODEL: Logistic Regression
+  recall(spoiled) = 0.820
+  accuracy        = 0.741  (NFR01 target > 0.85)
+  inference       = 3.380 ms/sample  (NFR02 target < 2000 ms)
+Saved -> results/best_model.joblib
+======================================================================

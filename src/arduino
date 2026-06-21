@@ -1,0 +1,56 @@
+#include <DHT.h>
+
+#define DHTPIN 27      // ganti kalau DHT kamu bukan 27
+#define DHTTYPE DHT22
+
+#define MQ2_PIN    34
+#define MQ135_PIN  35
+#define MQ4_PIN    32
+
+const unsigned long INTERVAL_MS = 30000UL; // 30 detik
+
+DHT dht(DHTPIN, DHTTYPE);
+
+unsigned long t0;
+unsigned long lastMs = 0;
+
+void setup() {
+  Serial.begin(115200);
+  delay(2000);
+  dht.begin();
+  analogReadResolution(12);
+
+  t0 = millis();
+
+  // Header CSV (PENTING: 1x saja)
+  Serial.println("ms,mq2,mq135,mq4,humidity,tempC");
+}
+
+void loop() {
+  unsigned long now = millis();
+  if (now - lastMs < INTERVAL_MS) return;
+  lastMs = now;
+
+  unsigned long ms = now - t0;
+
+  int mq2   = analogRead(MQ2_PIN);
+  int mq135 = analogRead(MQ135_PIN);
+  int mq4   = analogRead(MQ4_PIN);
+
+  float h = dht.readHumidity();
+  float t = dht.readTemperature();
+
+  // Cetak CSV row
+  Serial.print(ms); Serial.print(",");
+  Serial.print(mq2); Serial.print(",");
+  Serial.print(mq135); Serial.print(",");
+  Serial.print(mq4); Serial.print(",");
+
+  if (isnan(h) || isnan(t)) {
+    Serial.print(""); Serial.print(",");
+    Serial.println("");
+  } else {
+    Serial.print(h, 2); Serial.print(",");
+    Serial.println(t, 2);
+  }
+}
