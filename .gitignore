@@ -13,6 +13,14 @@ env/
 .claude/
 .vscode/
 
+# Node / Next.js
+node_modules/
+.next/
+*.tsbuildinfo
+
+# Dashboard model artifacts (regenerate with: python export_models.py)
+dashboard/backend/models/
+
 # OS
 Thumbs.db
 .DS_Store

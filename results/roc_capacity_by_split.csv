@@ -1,0 +1,202 @@
+split,model,param,value,val_auc
+Stratified K-Fold,Logistic Regression,epoch,1,0.6339204879482656
+Stratified K-Fold,Logistic Regression,epoch,2,0.6075110229276897
+Stratified K-Fold,Logistic Regression,epoch,3,0.7310795120517344
+Stratified K-Fold,Logistic Regression,epoch,4,0.9197920340975896
+Stratified K-Fold,Logistic Regression,epoch,5,0.8614737654320987
+Stratified K-Fold,Logistic Regression,epoch,6,0.82861221340388
+Stratified K-Fold,Logistic Regression,epoch,7,0.8768371546149324
+Stratified K-Fold,Logistic Regression,epoch,8,0.7759913286302176
+Stratified K-Fold,Logistic Regression,epoch,9,0.7183318636096414
+Stratified K-Fold,Logistic Regression,epoch,10,0.9175345385067608
+Stratified K-Fold,Logistic Regression,epoch,11,0.7236651234567901
+Stratified K-Fold,Logistic Regression,epoch,12,0.830765726043504
+Stratified K-Fold,Logistic Regression,epoch,13,0.7618680188124634
+Stratified K-Fold,Logistic Regression,epoch,14,0.9369337889476779
+Stratified K-Fold,Logistic Regression,epoch,15,0.7857197971781306
+Stratified K-Fold,Logistic Regression,epoch,16,0.8388503086419753
+Stratified K-Fold,Logistic Regression,epoch,17,0.9105717225161669
+Stratified K-Fold,Logistic Regression,epoch,18,0.9107326572604351
+Stratified K-Fold,Logistic Regression,epoch,19,0.7736658583186361
+Stratified K-Fold,Logistic Regression,epoch,20,0.8694481187536743
+Stratified K-Fold,Logistic Regression,epoch,21,0.9007899764844209
+Stratified K-Fold,Logistic Regression,epoch,22,0.9000349059376838
+Stratified K-Fold,Logistic Regression,epoch,23,0.8963216490299825
+Stratified K-Fold,Logistic Regression,epoch,24,0.8919326866549089
+Stratified K-Fold,Logistic Regression,epoch,25,0.8840964873603763
+Stratified K-Fold,Logistic Regression,epoch,26,0.8568963109935333
+Stratified K-Fold,Logistic Regression,epoch,27,0.7829309964726632
+Stratified K-Fold,Logistic Regression,epoch,28,0.8534189447383892
+Stratified K-Fold,Logistic Regression,epoch,29,0.8596829071134626
+Stratified K-Fold,Logistic Regression,epoch,30,0.8856319811875368
+Stratified K-Fold,Logistic Regression,epoch,31,0.9227344209288655
+Stratified K-Fold,Logistic Regression,epoch,32,0.920000734861846
+Stratified K-Fold,Logistic Regression,epoch,33,0.9017261904761905
+Stratified K-Fold,Logistic Regression,epoch,34,0.8524408436213992
+Stratified K-Fold,Logistic Regression,epoch,35,0.8016196355085243
+Stratified K-Fold,Logistic Regression,epoch,36,0.7848849941211051
+Stratified K-Fold,Logistic Regression,epoch,37,0.8688966049382717
+Stratified K-Fold,Logistic Regression,epoch,38,0.8870028659611994
+Stratified K-Fold,Logistic Regression,epoch,39,0.8938786008230453
+Stratified K-Fold,Logistic Regression,epoch,40,0.81546259553204
+Stratified K-Fold,Random Forest,n_estimators,10,0.7844315843621399
+Stratified K-Fold,Random Forest,n_estimators,25,0.7441168797766019
+Stratified K-Fold,Random Forest,n_estimators,50,0.6286307686654908
+Stratified K-Fold,Random Forest,n_estimators,100,0.6436177248677248
+Stratified K-Fold,Random Forest,n_estimators,200,0.6630956055261611
+Stratified K-Fold,Random Forest,n_estimators,350,0.5930313051146384
+Stratified K-Fold,Random Forest,n_estimators,500,0.5898594576719576
+Stratified K-Fold,Random Forest,n_estimators,750,0.590486111111111
+Stratified K-Fold,Random Forest,n_estimators,1000,0.5953350970017638
+Stratified K-Fold,Decision Tree,max_depth,1,0.5
+Stratified K-Fold,Decision Tree,max_depth,2,0.6623897707231041
+Stratified K-Fold,Decision Tree,max_depth,3,0.7071310993533216
+Stratified K-Fold,Decision Tree,max_depth,5,0.4224838330393885
+Stratified K-Fold,Decision Tree,max_depth,7,0.5564381246325691
+Stratified K-Fold,Decision Tree,max_depth,9,0.43473985890652556
+Stratified K-Fold,Decision Tree,max_depth,11,0.4208230452674897
+Stratified K-Fold,Decision Tree,max_depth,15,0.4667463991769547
+Stratified K-Fold,Decision Tree,max_depth,None,0.4730489417989418
+Stratified K-Fold,KNN,k,1,0.5443562610229278
+Stratified K-Fold,KNN,k,3,0.5336021090534979
+Stratified K-Fold,KNN,k,5,0.5249827307466195
+Stratified K-Fold,KNN,k,7,0.5236752278071722
+Stratified K-Fold,KNN,k,9,0.5669821061140505
+Stratified K-Fold,KNN,k,11,0.5936434450323339
+Stratified K-Fold,KNN,k,15,0.5965171222810112
+Stratified K-Fold,KNN,k,21,0.5880259773662551
+Stratified K-Fold,KNN,k,31,0.5989366549088772
+Grouped,Logistic Regression,epoch,1,0.8809082892416226
+Grouped,Logistic Regression,epoch,2,0.9646270576131687
+Grouped,Logistic Regression,epoch,3,0.8973192239858905
+Grouped,Logistic Regression,epoch,4,0.9389991181657849
+Grouped,Logistic Regression,epoch,5,0.9237503674309229
+Grouped,Logistic Regression,epoch,6,0.9192041446208113
+Grouped,Logistic Regression,epoch,7,0.8154185038212817
+Grouped,Logistic Regression,epoch,8,0.8218342151675485
+Grouped,Logistic Regression,epoch,9,0.9177017195767196
+Grouped,Logistic Regression,epoch,10,0.9599845679012344
+Grouped,Logistic Regression,epoch,11,0.8567816725455615
+Grouped,Logistic Regression,epoch,12,0.8252241328630218
+Grouped,Logistic Regression,epoch,13,0.9129677395649618
+Grouped,Logistic Regression,epoch,14,0.7960552616108171
+Grouped,Logistic Regression,epoch,15,0.9158862433862434
+Grouped,Logistic Regression,epoch,16,0.8735493827160493
+Grouped,Logistic Regression,epoch,17,0.928721340388007
+Grouped,Logistic Regression,epoch,18,0.9282289829512053
+Grouped,Logistic Regression,epoch,19,0.9027513227513227
+Grouped,Logistic Regression,epoch,20,0.8827399323927102
+Grouped,Logistic Regression,epoch,21,0.8743926366843033
+Grouped,Logistic Regression,epoch,22,0.895981040564374
+Grouped,Logistic Regression,epoch,23,0.896084656084656
+Grouped,Logistic Regression,epoch,24,0.9211607142857143
+Grouped,Logistic Regression,epoch,25,0.9038672104644327
+Grouped,Logistic Regression,epoch,26,0.9089440035273368
+Grouped,Logistic Regression,epoch,27,0.9448938124632569
+Grouped,Logistic Regression,epoch,28,0.9241927542621988
+Grouped,Logistic Regression,epoch,29,0.8983557466196355
+Grouped,Logistic Regression,epoch,30,0.8842853468547913
+Grouped,Logistic Regression,epoch,31,0.8344558348030571
+Grouped,Logistic Regression,epoch,32,0.9224853027630806
+Grouped,Logistic Regression,epoch,33,0.9028112139917697
+Grouped,Logistic Regression,epoch,34,0.8793852880658435
+Grouped,Logistic Regression,epoch,35,0.9033524397413286
+Grouped,Logistic Regression,epoch,36,0.9196013374485597
+Grouped,Logistic Regression,epoch,37,0.9283061434450322
+Grouped,Logistic Regression,epoch,38,0.935979570840682
+Grouped,Logistic Regression,epoch,39,0.9162217078189301
+Grouped,Logistic Regression,epoch,40,0.9112084803057026
+Grouped,Random Forest,n_estimators,10,0.8906802983539096
+Grouped,Random Forest,n_estimators,25,0.7560633450911229
+Grouped,Random Forest,n_estimators,50,0.7260971487360376
+Grouped,Random Forest,n_estimators,100,0.7352039241622574
+Grouped,Random Forest,n_estimators,200,0.7471779467960024
+Grouped,Random Forest,n_estimators,350,0.7422492283950617
+Grouped,Random Forest,n_estimators,500,0.7464484126984128
+Grouped,Random Forest,n_estimators,750,0.7518966784244561
+Grouped,Random Forest,n_estimators,1000,0.7507758303938858
+Grouped,Decision Tree,max_depth,1,0.6767471340388007
+Grouped,Decision Tree,max_depth,2,0.7448688271604937
+Grouped,Decision Tree,max_depth,3,0.5428235229276895
+Grouped,Decision Tree,max_depth,5,0.585203373015873
+Grouped,Decision Tree,max_depth,7,0.31252755731922394
+Grouped,Decision Tree,max_depth,9,0.4067239858906526
+Grouped,Decision Tree,max_depth,11,0.40677377278071725
+Grouped,Decision Tree,max_depth,15,0.5297141387419165
+Grouped,Decision Tree,max_depth,None,0.5306106701940035
+Grouped,KNN,k,1,0.6073082010582009
+Grouped,KNN,k,3,0.5997216710758377
+Grouped,KNN,k,5,0.5780335097001764
+Grouped,KNN,k,7,0.6058515211640212
+Grouped,KNN,k,9,0.7212676366843033
+Grouped,KNN,k,11,0.7299588477366256
+Grouped,KNN,k,15,0.7064895649617873
+Grouped,KNN,k,21,0.6337942754262199
+Grouped,KNN,k,31,0.5740439447383892
+Stratified per Trial,Logistic Regression,epoch,1,0.8029772927689595
+Stratified per Trial,Logistic Regression,epoch,2,0.5377197236919459
+Stratified per Trial,Logistic Regression,epoch,3,0.883452380952381
+Stratified per Trial,Logistic Regression,epoch,4,0.9632433127572017
+Stratified per Trial,Logistic Regression,epoch,5,0.8623214285714286
+Stratified per Trial,Logistic Regression,epoch,6,0.9235339506172839
+Stratified per Trial,Logistic Regression,epoch,7,0.7183193709582598
+Stratified per Trial,Logistic Regression,epoch,8,0.8855041152263374
+Stratified per Trial,Logistic Regression,epoch,9,0.8099628894767783
+Stratified per Trial,Logistic Regression,epoch,10,0.872257863021752
+Stratified per Trial,Logistic Regression,epoch,11,0.847468768371546
+Stratified per Trial,Logistic Regression,epoch,12,0.8411772486772486
+Stratified per Trial,Logistic Regression,epoch,13,0.8215490887713109
+Stratified per Trial,Logistic Regression,epoch,14,0.7817750587889477
+Stratified per Trial,Logistic Regression,epoch,15,0.9155893592004704
+Stratified per Trial,Logistic Regression,epoch,16,0.9071105232216345
+Stratified per Trial,Logistic Regression,epoch,17,0.7622097295708405
+Stratified per Trial,Logistic Regression,epoch,18,0.7731393298059965
+Stratified per Trial,Logistic Regression,epoch,19,0.9045072751322752
+Stratified per Trial,Logistic Regression,epoch,20,0.8324941211052322
+Stratified per Trial,Logistic Regression,epoch,21,0.8497784391534391
+Stratified per Trial,Logistic Regression,epoch,22,0.9073883009994121
+Stratified per Trial,Logistic Regression,epoch,23,0.8972927689594357
+Stratified per Trial,Logistic Regression,epoch,24,0.8380812757201646
+Stratified per Trial,Logistic Regression,epoch,25,0.8348644179894179
+Stratified per Trial,Logistic Regression,epoch,26,0.8297619047619048
+Stratified per Trial,Logistic Regression,epoch,27,0.9252630805408583
+Stratified per Trial,Logistic Regression,epoch,28,0.860978468547913
+Stratified per Trial,Logistic Regression,epoch,29,0.8576557907113462
+Stratified per Trial,Logistic Regression,epoch,30,0.8578762492651383
+Stratified per Trial,Logistic Regression,epoch,31,0.8645737801293357
+Stratified per Trial,Logistic Regression,epoch,32,0.896735743680188
+Stratified per Trial,Logistic Regression,epoch,33,0.8461662257495591
+Stratified per Trial,Logistic Regression,epoch,34,0.8927098030570253
+Stratified per Trial,Logistic Regression,epoch,35,0.8903328924162257
+Stratified per Trial,Logistic Regression,epoch,36,0.8825150646678425
+Stratified per Trial,Logistic Regression,epoch,37,0.8945550411522634
+Stratified per Trial,Logistic Regression,epoch,38,0.8478409758965315
+Stratified per Trial,Logistic Regression,epoch,39,0.896629923574368
+Stratified per Trial,Logistic Regression,epoch,40,0.8402630805408583
+Stratified per Trial,Random Forest,n_estimators,10,0.5114908509700177
+Stratified per Trial,Random Forest,n_estimators,25,0.5516189006466784
+Stratified per Trial,Random Forest,n_estimators,50,0.6450196575543797
+Stratified per Trial,Random Forest,n_estimators,100,0.7073502718988831
+Stratified per Trial,Random Forest,n_estimators,200,0.7014816651969429
+Stratified per Trial,Random Forest,n_estimators,350,0.697865777483833
+Stratified per Trial,Random Forest,n_estimators,500,0.6990351263962374
+Stratified per Trial,Random Forest,n_estimators,750,0.6942660567313343
+Stratified per Trial,Random Forest,n_estimators,1000,0.6914912184009406
+Stratified per Trial,Decision Tree,max_depth,1,0.5
+Stratified per Trial,Decision Tree,max_depth,2,0.656139770723104
+Stratified per Trial,Decision Tree,max_depth,3,0.6999154908877131
+Stratified per Trial,Decision Tree,max_depth,5,0.4251877572016461
+Stratified per Trial,Decision Tree,max_depth,7,0.689566431510876
+Stratified per Trial,Decision Tree,max_depth,9,0.2814440035273369
+Stratified per Trial,Decision Tree,max_depth,11,0.555650352733686
+Stratified per Trial,Decision Tree,max_depth,15,0.4927193562610229
+Stratified per Trial,Decision Tree,max_depth,None,0.5974096119929453
+Stratified per Trial,KNN,k,1,0.706090167548501
+Stratified per Trial,KNN,k,3,0.6522398589065256
+Stratified per Trial,KNN,k,5,0.757853835978836
+Stratified per Trial,KNN,k,7,0.7647323265726044
+Stratified per Trial,KNN,k,9,0.7742498897707231
+Stratified per Trial,KNN,k,11,0.7624946722516168
+Stratified per Trial,KNN,k,15,0.7490713183421517
+Stratified per Trial,KNN,k,21,0.703462485302763
+Stratified per Trial,KNN,k,31,0.6867978395061728

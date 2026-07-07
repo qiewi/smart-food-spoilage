@@ -30,7 +30,7 @@ import os
 #   elapsed < threshold  → "fresh"
 #   elapsed >= threshold → "spoiled"
 FRESH_THRESHOLD_HOURS = {
-    "Nasi Putih":   4,
+    "Nasi Putih":   6,
     "Ayam Goreng":  4,
     "Ikan Goreng":  10,
     "Telur Rebus":  24,
