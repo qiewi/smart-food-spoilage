@@ -41,6 +41,30 @@ export type Features = {
   mq4: number;
 };
 
+export type EvalMetrics = {
+  n_rows: number;
+  n_fresh: number;
+  n_spoiled: number;
+  confusion: number[][]; // [[TN, FP], [FN, TP]] for [fresh, spoiled]
+  accuracy: number;
+  precision_macro: number;
+  recall_macro: number;
+  f1_macro: number;
+  roc_auc: number | null;
+};
+
+export type FileEval = EvalMetrics & { filename: string };
+
+export type EvalResult = {
+  split: string;
+  model: string;
+  n_files: number;
+  overall: EvalMetrics;
+  per_file: FileEval[];
+  warnings: string[];
+  reference_metrics: Metrics;
+};
+
 async function handle<T>(res: Response): Promise<T> {
   if (!res.ok) {
     let detail = res.statusText;
@@ -65,6 +89,20 @@ export async function predict(body: {
 } & Features): Promise<PredictResult> {
   return handle(
     await fetch(`${BASE}/api/predict`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(body),
+    })
+  );
+}
+
+export async function evaluateCsv(body: {
+  split: string;
+  model: string;
+  files: { name: string; content: string }[];
+}): Promise<EvalResult> {
+  return handle(
+    await fetch(`${BASE}/api/evaluate`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(body),

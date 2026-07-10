@@ -45,7 +45,7 @@ def _model_specs():
     return [
         (
             "Logistic Regression",
-            LogisticRegression(solver="liblinear", max_iter=1000),
+            LogisticRegression(solver="liblinear"),
             {
                 "clf__C": [0.0001, 0.001, 0.01, 0.1, 1, 10, 100],
                 "clf__penalty": ["l1", "l2"],

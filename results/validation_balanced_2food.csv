@@ -1,0 +1,9 @@
+split,model,accuracy,precision_macro,recall_macro,f1_macro,roc_auc
+Grouped,Logistic Regression,0.6545,0.6711,0.6545,0.6459,0.6492
+Grouped,Decision Tree,0.5872,0.5899,0.5872,0.584,0.629
+Grouped,KNN,0.6449,0.6581,0.6449,0.6373,0.6471
+Grouped,Random Forest,0.6167,0.6234,0.6167,0.6114,0.6163
+Random Split,Logistic Regression,0.5,0.25,0.5,0.3333,0.6813
+Random Split,Decision Tree,0.5962,0.5998,0.5962,0.5924,0.5651
+Random Split,KNN,0.5224,0.5225,0.5224,0.5221,0.5612
+Random Split,Random Forest,0.5045,0.5045,0.5045,0.5045,0.6024

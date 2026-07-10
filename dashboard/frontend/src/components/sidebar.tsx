@@ -2,11 +2,12 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { FlaskConical, History, LayoutDashboard, Leaf, Settings } from "lucide-react";
+import { FileSpreadsheet, FlaskConical, History, LayoutDashboard, Leaf, Settings } from "lucide-react";
 
 const NAV = [
   { href: "/", label: "Dashboard", icon: LayoutDashboard },
   { href: "/uji-model", label: "Uji Model", icon: FlaskConical },
+  { href: "/evaluasi", label: "Evaluasi CSV", icon: FileSpreadsheet },
   { href: "/riwayat", label: "Riwayat", icon: History },
 ];
 

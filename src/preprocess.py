@@ -33,13 +33,16 @@ def apply_baseline_correction(df: pd.DataFrame) -> pd.DataFrame:
 
 
 def trim_warmup(df: pd.DataFrame, minutes: int = config.WARMUP_MINUTES) -> pd.DataFrame:
-    """Drop the first `minutes` of each run (sensor warm-up).
+    """Drop the first `minutes` of EACH run (sensor warm-up).
 
-    Row removal only, applied before splitting — no fitted statistics,
-    so it cannot leak test information into train.
+    Measured from each run's own first reading: recording starts the moment the food
+    is placed and the sensor powers on, so the opening `minutes` of every run are
+    warm-up regardless of the absolute elapsed value. Row removal only, applied before
+    splitting — no fitted statistics, so it cannot leak test information into train.
     """
     cutoff = minutes * 60
-    return df[df["elapsed_sec"] >= cutoff].reset_index(drop=True)
+    start = df.groupby(config.GROUP_COLUMN)["elapsed_sec"].transform("min")
+    return df[df["elapsed_sec"] >= start + cutoff].reset_index(drop=True)
 
 
 def encode_labels(df: pd.DataFrame) -> pd.DataFrame:

@@ -4,14 +4,18 @@ Endpoints:
   GET  /api/options       -> dropdown data (splits, models, food_types) + per-model metrics
   POST /api/predict       -> classify one reading with the chosen (split, model)
   POST /api/sensor/read   -> read the live sensor for N seconds, return averaged values
+  POST /api/evaluate      -> score a (split, model) on uploaded labelled CSV(s)
 
 Run:  uvicorn main:app --port 8000   (from dashboard/backend/)
 """
+
+from typing import List
 
 from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
 
+import batch_eval
 import inference
 import sensor
 
@@ -38,6 +42,17 @@ class SensorReq(BaseModel):
     seconds: int = 10
 
 
+class EvalFile(BaseModel):
+    name: str
+    content: str
+
+
+class EvalReq(BaseModel):
+    split: str
+    model: str
+    files: List[EvalFile]
+
+
 @app.get("/api/options")
 def options():
     m = inference.metadata()
@@ -61,3 +76,12 @@ def sensor_read(req: SensorReq):
         return sensor.read_average(req.port, seconds=req.seconds)
     except Exception as e:  # noqa: BLE001
         raise HTTPException(status_code=503, detail=str(e))
+
+
+@app.post("/api/evaluate")
+def evaluate(req: EvalReq):
+    try:
+        files = [{"name": f.name, "content": f.content} for f in req.files]
+        return batch_eval.evaluate(req.split, req.model, files)
+    except Exception as e:  # noqa: BLE001
+        raise HTTPException(status_code=400, detail=str(e))

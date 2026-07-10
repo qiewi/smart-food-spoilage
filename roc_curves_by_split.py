@@ -64,7 +64,7 @@ for j, (sname, sslug) in enumerate(SPLITS):
     ax.legend(loc="lower right", fontsize=8, framealpha=0.9)
     print()
 
-fig.suptitle("Kurva ROC — 4 model per split (gas-only, validasi 50/50)",
+fig.suptitle("Kurva ROC — 4 model per split (validasi)",
              fontsize=14, fontweight="bold")
 fig.tight_layout(rect=(0, 0.03, 1, 0.95))
 out_png = config.FIGURES_DIR / "roc_curves_by_split.png"

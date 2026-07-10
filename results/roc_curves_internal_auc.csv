@@ -1,0 +1,9 @@
+split,model,roc_auc
+Grouped,Logistic Regression,0.7354
+Grouped,Decision Tree,0.4158
+Grouped,KNN,0.6451
+Grouped,Random Forest,0.4932
+Random Split,Logistic Regression,0.7421
+Random Split,Decision Tree,0.953
+Random Split,KNN,0.9736
+Random Split,Random Forest,0.9785

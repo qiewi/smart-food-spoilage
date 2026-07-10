@@ -95,7 +95,7 @@ for i, sname in enumerate(SPLIT_ORDER):
         if j == 0:
             ax.set_ylabel(f"{sname}\n\nAktual", fontsize=9, fontweight="bold")
 
-fig.suptitle("Confusion Matrix — validation REBALANCED 50/50 (GAS-ONLY) — 2 split × 4 model",
+fig.suptitle("Confusion Matrix — validation — 2 split × 4 model",
              fontsize=13, fontweight="bold")
 fig.tight_layout(rect=(0, 0, 1, 0.98))
 fig.savefig(config.FIGURES_DIR / "confusion_matrices_5050_gasonly.png", dpi=150)

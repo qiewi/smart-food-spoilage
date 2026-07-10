@@ -32,8 +32,9 @@ RANDOM_STATE = 42
 # more runs are collected.
 N_SPLITS = 3
 
-# Drop the first few minutes of each run while the sensors warm up.
-WARMUP_MINUTES = 2
+# Drop the first few minutes of EACH run (relative to its own start) while the
+# sensors warm up. Recording begins when the food is cooked and the sensor powers on.
+WARMUP_MINUTES = 5
 
 # Per-run baseline correction (R/R0): divide each MQ sensor by its own baseline
 # to cancel the large run-to-run baseline drift. R0 = mean over the first
