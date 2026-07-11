@@ -1,17 +1,17 @@
 Tahap,Split,Model,Accuracy,Precision,Recall,F1-score,AUC
-Training,Grouped,Logistic Regression,0.685,0.71,0.699,0.683,0.735
-Training,Grouped,Decision Tree,0.473,0.483,0.484,0.471,0.416
-Training,Grouped,KNN,0.607,0.603,0.587,0.58,0.645
-Training,Grouped,Random Forest,0.468,0.481,0.483,0.462,0.493
-Training,Random Split,Logistic Regression,0.666,0.662,0.659,0.66,0.742
-Training,Random Split,Decision Tree,0.917,0.916,0.916,0.916,0.953
-Training,Random Split,KNN,0.93,0.93,0.928,0.929,0.974
-Training,Random Split,Random Forest,0.929,0.928,0.928,0.928,0.979
-Validation,Grouped,Logistic Regression,0.738,0.752,0.738,0.734,0.763
-Validation,Grouped,Decision Tree,0.56,0.565,0.56,0.553,0.64
-Validation,Grouped,KNN,0.733,0.745,0.733,0.729,0.741
-Validation,Grouped,Random Forest,0.71,0.717,0.71,0.708,0.736
-Validation,Random Split,Logistic Regression,0.5,0.25,0.5,0.333,0.792
-Validation,Random Split,Decision Tree,0.698,0.702,0.698,0.696,0.689
-Validation,Random Split,KNN,0.64,0.64,0.64,0.64,0.682
-Validation,Random Split,Random Forest,0.625,0.625,0.625,0.625,0.72
+Training,Grouped,Logistic Regression,0.682,0.708,0.697,0.68,0.735
+Training,Grouped,Decision Tree,0.407,0.414,0.426,0.395,0.378
+Training,Grouped,KNN,0.617,0.615,0.599,0.593,0.661
+Training,Grouped,Random Forest,0.413,0.419,0.435,0.394,0.483
+Training,Random Split,Logistic Regression,0.677,0.674,0.668,0.669,0.747
+Training,Random Split,Decision Tree,0.923,0.922,0.923,0.923,0.966
+Training,Random Split,KNN,0.936,0.936,0.935,0.936,0.982
+Training,Random Split,Random Forest,0.936,0.935,0.936,0.936,0.986
+Validation,Grouped,Logistic Regression,0.749,0.767,0.749,0.744,0.764
+Validation,Grouped,Decision Tree,0.671,0.706,0.671,0.656,0.674
+Validation,Grouped,KNN,0.734,0.746,0.734,0.731,0.741
+Validation,Grouped,Random Forest,0.706,0.712,0.706,0.704,0.741
+Validation,Random Split,Logistic Regression,0.5,0.25,0.5,0.333,0.791
+Validation,Random Split,Decision Tree,0.685,0.688,0.685,0.684,0.716
+Validation,Random Split,KNN,0.657,0.658,0.657,0.657,0.683
+Validation,Random Split,Random Forest,0.624,0.624,0.624,0.624,0.739

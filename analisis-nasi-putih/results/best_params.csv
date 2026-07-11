@@ -1,0 +1,5 @@
+model,C,class_weight,penalty,criterion,max_depth,min_samples_leaf,min_samples_split,metric,n_neighbors,weights,n_estimators,max_features
+Logistic Regression,100.0,,l1,,,,,,,,,
+Decision Tree,,,,gini,9.0,5.0,2.0,,,,,
+KNN,,,,,,,,manhattan,11.0,uniform,,
+Random Forest,,,,gini,,3.0,10.0,,,,1000.0,sqrt

@@ -1,0 +1,8 @@
+# artefak model (di-generate oleh export_dashboard_models.py)
+backend/models/
+backend/__pycache__/
+
+# frontend
+frontend/node_modules/
+frontend/.next/
+frontend/tsconfig.tsbuildinfo
