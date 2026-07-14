@@ -55,9 +55,32 @@ def _agg(fold_dicts):
     return out
 
 
-def cv_evaluate(X, y, groups, Xv, yv):
-    """CV rotasi penuh untuk 2 skema split. Return (internal_df, validation_df) dgn mean±std."""
+def _trim_70_30(tei, elapsed, run, n_train):
+    """Pangkas EKOR fold uji (baris terakhir tiap trial, urut waktu) sampai train:test = 70:30.
+
+    Label = ambang waktu, jadi ekor tiap trial 100% spoiled. Memangkas dari EKOR (bukan acak)
+    menjaga data uji tetap kontigu secara temporal DAN tetap memuat kedua kelas. Aturan trim
+    ini dipakai SAMA untuk Grouped & Random Split, sehingga satu-satunya beda antar keduanya
+    tetap cara pengelompokan (bukan cara trim). Permintaan pembimbing: internal test 70:30.
+    """
+    target = int(round(n_train * 30 / 70))
+    if len(tei) <= target:
+        return tei
+    ratio = target / len(tei)
+    keep = []
+    for r in np.unique(run[tei]):
+        idx = tei[run[tei] == r]
+        idx = idx[np.argsort(elapsed[idx], kind="stable")]      # urut waktu dalam trial
+        keep.append(idx[:max(1, int(round(len(idx) * ratio)))])  # ambil awal, buang ekor
+    return np.sort(np.concatenate(keep))
+
+
+def cv_evaluate(X, y, groups, Xv, yv, elapsed):
+    """CV rotasi penuh 2 skema split; internal test tiap fold dipangkas ekor -> 70:30.
+    Return (internal_df, validation_df, internal_pooled_df, validation_pooled_df)."""
     yn = y.to_numpy()
+    run = groups.to_numpy()
+    elapsed = np.asarray(elapsed)
     schemes = [
         ("Grouped", StratifiedGroupKFold(config.N_SPLITS, shuffle=True,
                                          random_state=config.RANDOM_STATE), True),
@@ -70,6 +93,10 @@ def cv_evaluate(X, y, groups, Xv, yv):
         folds = list(cv.split(X, y, groups)) if grouped else list(cv.split(X, y))
         per = {m: {"int": [], "val": [], "oy": [], "op": [], "vp": []} for m in MODELS}
         for tri, tei in folds:
+            tei = _trim_70_30(tei, elapsed, run, len(tri))       # internal test -> 70:30
+            pct = 100 * len(tri) / (len(tri) + len(tei))
+            print(f"    [{sname}] fold: latih {len(tri)} / uji {len(tei)} = {pct:.1f}:{100-pct:.1f}"
+                  f" | uji fresh {int((yn[tei]==0).sum())} / spoiled {int((yn[tei]==1).sum())}")
             yte = yn[tei]
             for name, est, grid, kind in model_specs():
                 best, _ = tune(est, grid, kind, X.iloc[tri], y.iloc[tri])

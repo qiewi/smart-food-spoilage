@@ -57,6 +57,7 @@ def main():
     print("Trial:", sorted(tr["run_id"].unique()))
     tr = data.encode_labels(tr)
     Xtr, ytr, groups = data.build_xy(tr)
+    elapsed_tr = tr["elapsed_sec"].to_numpy()      # metadata utk trailing-trim 70:30 (bukan fitur)
     print(f"Fitur (gas-only): {list(Xtr.columns)}\n")
 
     # ---- VALIDATION -> 50/50 ----
@@ -68,9 +69,10 @@ def main():
     print(f"VALIDATION 50/50: {len(yv)} baris (fresh {(yv==0).sum()} / spoiled {(yv==1).sum()})\n")
 
     # ---- Cross-validation (Grouped=StratifiedGroupKFold, Random=StratifiedKFold) ----
-    print("Cross-validation 3 fold (4 model x 2 split)…")
+    print("Cross-validation 3 fold, internal test dipangkas ekor -> 70:30 (4 model x 2 split)…")
     (internal_df, validation_df,
-     internal_pooled_df, validation_pooled_df) = evaluate.cv_evaluate(Xtr, ytr, groups, Xv, yv)
+     internal_pooled_df, validation_pooled_df) = evaluate.cv_evaluate(Xtr, ytr, groups, Xv, yv,
+                                                                      elapsed_tr)
     params_df = evaluate.final_params(Xtr, ytr)
 
     # Internal & validation = pooled (tanpa std, konsisten dgn figur masing-masing).
@@ -78,9 +80,11 @@ def main():
     validation_pooled_df.round(4).to_csv(config.RESULTS_DIR / "metrics_validation.csv", index=False)
     _write_table_md(internal_pooled_df, config.RESULTS_DIR / "tabel_internal_test.md",
                     "Evaluasi Internal Test — Nasi Putih (gas-only)",
-                    ["Metrik dari prediksi **out-of-fold (OOF) 3-fold digabung** (lintas-trial),",
-                     "sumber sama dengan `confusion_matrices_internal.png` & `roc_curves_internal.png`",
-                     "→ angka tabel = angka gambar. Positif = spoiled; threshold 0.5."])
+                    ["Rotasi 3-fold; data uji tiap fold **dipangkas ekor (trailing-trim) → train:test = 70:30**",
+                     "(ekor tiap trial dibuang urut waktu, agar uji tetap kontigu temporal & memuat 2 kelas).",
+                     "Metrik dari prediksi **out-of-fold 3-fold digabung** (lintas-trial), sumber sama dengan",
+                     "`confusion_matrices_internal.png` & `roc_curves_internal.png` → angka tabel = angka gambar.",
+                     "Positif = spoiled; threshold 0.5."])
     _write_table_md(validation_pooled_df, config.RESULTS_DIR / "tabel_validation_test.md",
                     "Evaluasi Validation Test 50/50 — Nasi Putih (gas-only)",
                     ["Metrik dari probabilitas **3-fold dirata-rata per baris** (soft-ensemble),",

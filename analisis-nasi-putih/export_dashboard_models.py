@@ -1,19 +1,20 @@
 """Latih & simpan 8 pipeline (split x model) GAS-ONLY Nasi Putih + metadata.json untuk dashboard.
 
-Fitur gas-only [mq2, mq135, mq4] — TANPA food_type/humidity/tempC (single-food). MODEL DEPLOY:
-tiap (split, model) dilatih pada **SELURUH data training** (bukan 70%), tuned via CV split-nya
-sendiri lalu di-refit pada 100% data → satu model tunggal yang benar-benar dipakai. "Split" di
-sini menentukan **CV tuning**: Grouped = StratifiedGroupKFold (jujur, per-trial), Random Split =
-StratifiedKFold (baris acak, rawan bocor pada pemilihan hyperparameter). Refit F1. Dievaluasi
-pada validasi REBALANCED 50/50. train_metrics = skor inner-CV terbaik (chart train-vs-val).
+Fitur gas-only [mq2, mq135, mq4] — TANPA food_type/humidity/tempC (single-food).
 
-Catatan kejujuran: angka di sini = performa **model akhir (deployed)**, berbeda dari
-results/tabel_validation_test.md yang memakai **evaluasi metodologi** (ensemble rotasi 3-fold).
-Dua tujuan berbeda: tabel = perbandingan metodologi/kebocoran; dashboard = model yang dipakai.
+PROTOKOL 70:30 (selaras paper & pipeline tesis): tiap split dilatih pada **70% train partisinya
+sendiri** — Grouped = 2 trial utuh (fold-0 StratifiedGroupKFold, ~69:31), Random Split = 70%
+baris acak (StratifiedShuffleSplit test_size=0.30). Jadi kedua split BEDA DATA LATIH (bukan cuma
+beda hyperparameter) → peragaan kebocoran di dashboard benar-benar nyata. Tuning via inner
+StratifiedKFold(3) refit F1 — sama seperti `src/models.py:tune()` yang dipakai pipeline tesis.
+Dievaluasi pada validasi REBALANCED 50/50 (trial 0407).
 
-Mengikuti pola export_models.py (root) tetapi memakai modul gas-only analisis-nasi-putih/src.
+train_metrics = skor inner-CV terbaik (untuk chart train-vs-val dashboard).
+
+Catatan: angka di sini dari 1 model per split (partisi 70%), sedangkan
+results/tabel_validation_test.md merata-ratakan 3 model rotasi — jadi bisa berbeda tipis.
+
 Output: analisis-nasi-putih/dashboard/backend/models/{split}__{model}.joblib + metadata.json
-
 Jalankan:  cd analisis-nasi-putih && python export_dashboard_models.py
 """
 
@@ -25,7 +26,8 @@ from sklearn.base import clone
 from sklearn.metrics import (accuracy_score, f1_score, precision_score,
                              recall_score, roc_auc_score)
 from sklearn.model_selection import (GridSearchCV, RandomizedSearchCV,
-                                     StratifiedGroupKFold, StratifiedKFold)
+                                     StratifiedGroupKFold, StratifiedKFold,
+                                     StratifiedShuffleSplit)
 from sklearn.pipeline import Pipeline
 
 from src import config, data, evaluate
@@ -40,9 +42,6 @@ SPECS = model_specs()
 MODEL_SLUG = {"Logistic Regression": "logistic_regression", "Decision Tree": "decision_tree",
               "KNN": "knn", "Random Forest": "random_forest"}
 SPLIT_SLUG = {"Grouped": "grouped", "Random Split": "stratifiedkfold"}
-# "Split" = strategi CV untuk pemilihan hyperparameter (model tetap di-refit pada seluruh data).
-SEARCH_CV = {"Grouped": StratifiedGroupKFold(config.N_SPLITS, shuffle=True, random_state=RS),
-             "Random Split": StratifiedKFold(config.N_SPLITS, shuffle=True, random_state=RS)}
 
 
 def val_metrics(yt, yp, proba):              # no MCC
@@ -59,23 +58,34 @@ X, y, groups = data.build_xy(tr)
 val = data.encode_labels(data.clean(data.load(config.VAL_DIR)))
 Xval, yval, _ = data.build_xy(val)
 Xb, yb = evaluate.rebalance_5050(Xval, yval.to_numpy())      # validasi 50/50 (650:650)
+
+# ---------- partisi 70% train per split (DATA LATIH BEDA antar split) ----------
+skf_tr, _ = next(StratifiedShuffleSplit(1, test_size=0.30, random_state=RS).split(X, y))
+g_tr, _ = next(StratifiedGroupKFold(config.N_SPLITS, shuffle=True,
+                                    random_state=RS).split(X, y, groups))
+TRAIN = {"Grouped": g_tr, "Random Split": skf_tr}
 print(f"Fitur (GAS-ONLY): {config.FEATURES} | makanan: ['Nasi Putih'] | "
-      f"latih: {len(y)} baris (SELURUH data) | validasi 50/50: {len(yb)} baris\n")
+      f"validasi 50/50: {len(yb)} baris")
+for s, idx in TRAIN.items():
+    trials = sorted({t.split('_')[-1] for t in groups.to_numpy()[idx]})
+    print(f"  {s:14s}: latih {len(idx)} baris ({100*len(idx)/len(y):.1f}%) | trial latih: {trials}")
+print()
 
 
-def tune(est, grid, kind, cv, gp):
-    """Tune via CV split-nya pada SELURUH data, refit pada seluruh data (best_estimator_)."""
+def tune(est, grid, kind, xf, yf):
+    """Tune via inner StratifiedKFold(3) pada 70% train split-nya (pola src/models.py:tune)."""
     pipe = Pipeline([("prep", data.make_preprocessor()), ("clf", clone(est))])
     try:
         pipe.set_params(clf__n_jobs=1)
     except ValueError:
         pass
+    cv = StratifiedKFold(config.N_SPLITS, shuffle=True, random_state=RS)
     s = (RandomizedSearchCV(pipe, grid, n_iter=RF_N_ITER, scoring=config.SCORING,
                             refit=config.REFIT_METRIC, cv=cv, random_state=RS, n_jobs=N_JOBS)
          if kind == "random"
          else GridSearchCV(pipe, grid, scoring=config.SCORING, refit=config.REFIT_METRIC,
                            cv=cv, n_jobs=N_JOBS))
-    s.fit(X, y, groups=gp)
+    s.fit(xf, yf)
     cvr, bi = s.cv_results_, s.best_index_
     train_m = {"accuracy": float(cvr["mean_test_accuracy"][bi]),
                "precision_macro": float(cvr["mean_test_precision"][bi]),
@@ -85,17 +95,17 @@ def tune(est, grid, kind, cv, gp):
     return s.best_estimator_, s.best_params_, train_m
 
 
-meta = {"splits": list(SEARCH_CV), "models": [s[0] for s in SPECS], "food_types": ["Nasi Putih"],
+meta = {"splits": list(TRAIN), "models": [s[0] for s in SPECS], "food_types": ["Nasi Putih"],
         "features": config.FEATURES, "label_map": config.LABEL_MAP,
-        "metrics_note": ("gas-only Nasi Putih; MODEL DEPLOY dilatih pada SELURUH data training, "
-                         "tuning via CV split-nya; validasi rebalanced 50/50 (trial 0407)"),
+        "metrics_note": ("gas-only Nasi Putih; tiap split dilatih pada 70% train partisinya "
+                         "(Grouped=2 trial utuh, Random=70% baris acak); validasi rebalanced "
+                         "50/50 (trial 0407)"),
         "metrics": {}, "train_metrics": {}, "best_params": {}}
 
-for split, cv in SEARCH_CV.items():
+for split, tr_idx in TRAIN.items():
     meta["metrics"][split], meta["train_metrics"][split], meta["best_params"][split] = {}, {}, {}
-    gp = groups if split == "Grouped" else None
     for name, est, grid, kind in SPECS:
-        best, raw, train_m = tune(est, grid, kind, cv, gp)
+        best, raw, train_m = tune(est, grid, kind, X.iloc[tr_idx], y.iloc[tr_idx])
         joblib.dump(best, OUT / f"{SPLIT_SLUG[split]}__{MODEL_SLUG[name]}.joblib")
         m = val_metrics(yb, best.predict(Xb), best.predict_proba(Xb)[:, 1])
         meta["metrics"][split][name] = m
@@ -104,4 +114,4 @@ for split, cv in SEARCH_CV.items():
         print(f"  [{split:20s}] {name:22s} val50/50 acc={m['accuracy']:.3f} auc={m['roc_auc']:.3f}")
 
 (OUT / "metadata.json").write_text(json.dumps(meta, indent=2, default=str))
-print(f"\n{len(SEARCH_CV) * len(SPECS)} model GAS-ONLY Nasi Putih + metadata.json di {OUT}")
+print(f"\n{len(TRAIN) * len(SPECS)} model GAS-ONLY Nasi Putih (70:30 per split) + metadata.json di {OUT}")
